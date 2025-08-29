@@ -21,6 +21,9 @@
 
 ---
 
+<img width="1906" height="983" alt="image" src="https://github.com/user-attachments/assets/cb9d58d6-b460-460b-93b1-d6cf37dafd28" />
+
+
 Desenvolvido por Kaio e Miguel. Obs ao professor Pierre: há integrantes além dos atuantes da landing page pois aproveitamos este projeto em outra disciplina de CI/CD, porém não se preocupe pois todos os commits voltados a Landing Page em si, foram feitos por Kaio Moreira e Miguel Farias. Se por ventura ver algum commit de outro integrante, pode analisar o que foi alterado e verá que é da Pipeline em Github Actions que fizemos para essa outra disciplina.
 
 ## Link do site no ar
