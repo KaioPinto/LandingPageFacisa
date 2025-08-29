@@ -23,10 +23,21 @@
 
 Desenvolvido por Kaio e Miguel. Obs ao professor Pierre: há integrantes além dos atuantes da landing page pois aproveitamos este projeto em outra disciplina de CI/CD, porém não se preocupe pois todos os commits voltados a Landing Page em si, foram feitos por Kaio Moreira e Miguel Farias. Se por ventura ver algum commit de outro integrante, pode analisar o que foi alterado e verá que é da Pipeline em Github Actions que fizemos para essa outra disciplina.
 
+## Link do site no ar
+
+https://landing-page-facisa.vercel.app/
 
 # Documentação projeto CI/CD
 
 - O projeto selecionado foi uma simples Landing Page que está sendo desenvolvida e aprimorada ao longo da disciplina 'Programar em linguagem Interpretada', consiste em um portfólio simples com intenção de divulgar de forma profissional a mão de obra dos integrantes Kaio Moreira e Miguel Farias
+
+## Integrantes
+
+- Kaio Moreira
+- Miguel Coelho Farias
+- Nivea Souza
+- Marcos Aurélio
+- Gabriel Brito
 
 ## Sobre a construçãO da PIPELINE
 
@@ -37,4 +48,11 @@ Desenvolvido por Kaio e Miguel. Obs ao professor Pierre: há integrantes além d
 - Conseguindo prosseguir sem erros, a pipe irá pegar as secrets voltadas a conta Vercel que estão disponibilizadas ao Actions
 - A pipe irá realizar o deploy na Vercel e atualizar o site com as alterações.
 
+## Para executar a pipe
+
+Realize um commit diretamente na main ou um merge de qualquer branch para a Main
+
+## Link do site no ar
+
+https://landing-page-facisa.vercel.app/
 
