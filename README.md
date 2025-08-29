@@ -1,6 +1,9 @@
-# Landing Page Equipe Facisa
+# Landing Page Equipe Facisa - README PROJETO JS
 
-Landing page responsiva e acessível para apresentação da equipe de Sistemas de Informação da Facisa.
+## Sobre o projeto 
+- Landing page responsiva com o propósito de servir como um portfólio para os integrantes da equipe (Kaio Moreira e Miguel Farias). O projeto consiste em divulgação profissional dos integrantes contendo suas especialidades na área bem como casos de destaque.
+- Projeto responsivo
+- Deploy realizado no Vercel
 
 ## Seções
 - Hero (nome da equipe, slogan)
@@ -9,32 +12,16 @@ Landing page responsiva e acessível para apresentação da equipe de Sistemas d
 - Projetos/Trabalhos (cards com título, descrição e links)
 - Contato (formulário e redes profissionais)
 
-## Funcionalidades JS
-- Menu hambúrguer responsivo
-- Validação do formulário de contato
-- Scroll suave e botão "voltar ao topo"
 
 ## Estrutura de Pastas
 - `/assets` - arquivos estáticos (favicon, etc)
 - `/css` - estilos
 - `/js` - scripts
-- `/img` - imagens (adicione suas imagens aqui)
-
-## Como usar
-1. Adicione suas imagens na pasta `/img` (ex: foto de perfil, logos de stacks, imagens dos projetos).
-2. Edite os textos e links conforme sua necessidade.
-3. O site é mobile-first e responsivo.
-
-## Acessibilidade & SEO
-- HTML semântico
-- Imagens com `alt`
-- Contraste adequado
-- Meta tags e favicon
-
-## Personalização
-- Troque os arquivos de imagem por suas fotos e logos.
-- Edite os projetos e stacks conforme sua experiência.
+- `/img` - imagens 
 
 ---
 
-Desenvolvido por Kaio, finalizando o 7º período de Sistemas de Informação na Facisa.
+Desenvolvido por Kaio e Miguel. Obs ao professor Pierre: há integrantes além dos atuantes da landing page pois aproveitamos este projeto em outra disciplina de CI/CD, porém não se preocupe pois todos os commits voltados a Landing Page em si, foram feitos por Kaio Moreira e Miguel Farias. Se por ventura ver algum commit de outro integrante, pode analisar o que foi alterado e verá que é da Pipeline em Github Actions que fizemos para essa outra disciplina.
+
+
+
