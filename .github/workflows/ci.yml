@@ -1,0 +1,97 @@
+name: CI/CD Pipeline Landing Page
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Permite acionar manualmente
+
+jobs:
+  # Job 1: Rodar os testes
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes
+        run: npm test
+
+  # Job 2: Construir e publicar a imagem Docker
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test # <<< SÓ RODA SE O JOB 'test' PASSAR
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build e Push da imagem Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/landingpage:1.0.${{ github.run_number }} # Versiona com o hash do commit
+
+  # Job 3: Fazer o deploy no Google Cloud (GCP)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    
+    environment:
+      name: production
+      url: ${{ steps.get_url.outputs.url }}
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+
+      - name: Autenticar com o Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Instalar Terraform e Configurar gcloud
+        uses: hashicorp/setup-terraform@v3
+      - run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Terraform Apply (Garantir que a infra existe)
+        run: terraform -chdir=infra apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
+
+      - name: Puxar a imagem Docker da etapa de build
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/landingpage:1.0.${{ github.run_number }}
+
+      - name: Extrair conteúdo do site da imagem Docker
+        run: |
+          # Cria um container temporário a partir da imagem, sem iniciá-lo
+          docker create --name temp_container ${{ secrets.DOCKERHUB_USERNAME }}/landingpage:1.0.${{ github.run_number }}
+          # Copia os arquivos de dentro do container para uma pasta local no runner
+          docker cp temp_container:/usr/share/nginx/html ./site_content
+          # Remove o container temporário
+          docker rm temp_container
+
+      - name: Sincronizar arquivos extraídos com o GCS Bucket
+        run: |
+          BUCKET_NAME=$(terraform -chdir=infra output -raw bucket_name)
+          gsutil -m rsync -r ./site_content gs://$BUCKET_NAME
+          
+      - name: Obter URL do site
+        id: get_url
+        run: |
+          WEBSITE_URL=$(terraform -chdir=infra output -raw website_url)
+          echo "url=$WEBSITE_URL" >> $GITHUB_OUTPUT
